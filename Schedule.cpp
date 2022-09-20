@@ -95,10 +95,9 @@ void Schedule::appendNoCheck(Course course)
  */
 bool Schedule::wouldViolateCreditLimit(Course course) const
 {
-    if ((course.getCredits() + this->totalCredits) > CREDIT_LIMIT) {
-        return true;
-    }
-    return false;
+    // The following line is a placeholder (i.e., enough for the code to
+    // compile). Remove it when you start implementing this function.
+    return true;
 }
 
 /**
@@ -109,16 +108,8 @@ bool Schedule::alreadyInSchedule(Course course) const
     // Check if the student is registered
     // for a different section of the same course
 
-    //this->head = nullptr;
-    //this->tail = nullptr;
-    //this->totalCredits = 0;
-
-    //Node* srcIt = course.head;
-
-    //while (srcIt != nullptr) {
-        //if (course.getCrn() == this->)
-    //}
-
+    // The following line is a placeholder (i.e., enough for the code to
+    // compile). Remove it when you start implementing this function.
     return true;
 }
 
