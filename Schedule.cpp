@@ -109,15 +109,15 @@ bool Schedule::alreadyInSchedule(Course course) const
     // Check if the student is registered
     // for a different section of the same course
 
-    this->head = nullptr;
-    this->tail = nullptr;
-    this->totalCredits = 0;
+    //this->head = nullptr;
+    //this->tail = nullptr;
+    //this->totalCredits = 0;
 
-    Node* srcIt = course.head;
+    //Node* srcIt = course.head;
 
-    while (srcIt != nullptr) {
-        if (course.getCrn() == this->)
-    }
+    //while (srcIt != nullptr) {
+        //if (course.getCrn() == this->)
+    //}
 
     return true;
 }
