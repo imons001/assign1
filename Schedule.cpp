@@ -22,11 +22,19 @@ Schedule::Schedule()
  * @todo implement this function (it is simliar to Review 01)
  */
 Schedule::Schedule(const Schedule& src)
+    // initializes data members in C++11
     :head(nullptr),
      tail(nullptr),
      totalCredits(0)
 {
-    // Copy the src Linked List **data**
+    // Start the Copy Operations
+    Node* srcIt = src.head;
+
+    while (srcIt != nullptr) {
+        this->appendNoCheck(srcIt->data);
+
+        srcIt = srcIt->next;
+    }
 }
 
 /**
@@ -34,7 +42,31 @@ Schedule::Schedule(const Schedule& src)
  */
 Schedule::~Schedule()
 {
+    //create new nodes and set to nullptr
+    Node *this_iterator = nullptr;
+    Node *to_delete = nullptr;
 
+    //starts at the beginning "head"
+    this_iterator = this->head;
+
+    //move through and delete each node
+    while (this_iterator != nullptr){
+        //set the first node to be deleted
+        to_delete = this_iterator;
+
+        //move to next node
+        this_iterator = this_iterator->next;
+
+        //delete current node
+        delete to_delete;
+
+        //don't have dangling pointers
+        to_delete = nullptr;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+    ///nodes = 0;
 }
 
 /**
@@ -42,7 +74,20 @@ Schedule::~Schedule()
  */
 void Schedule::appendNoCheck(Course course)
 {
+    Node *new_node = nullptr;
 
+    new_node = new Node(course);
+
+    if (this->head == nullptr) {
+        this->head = new_node;
+        this->tail = new_node;
+    } else {
+        (this->tail)->next = new_node;
+        this->tail = new_node;
+    }
+    this->totalCredits++;
+
+    new_node = nullptr;
 }
 
 /**
@@ -50,9 +95,10 @@ void Schedule::appendNoCheck(Course course)
  */
 bool Schedule::wouldViolateCreditLimit(Course course) const
 {
-    // The following line is a placeholder (i.e., enough for the code to
-    // compile). Remove it when you start implementing this function.
-    return true;
+    if ((course.getCredits() + this->totalCredits) > CREDIT_LIMIT) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -63,8 +109,16 @@ bool Schedule::alreadyInSchedule(Course course) const
     // Check if the student is registered
     // for a different section of the same course
 
-    // The following line is a placeholder (i.e., enough for the code to
-    // compile). Remove it when you start implementing this function.
+    this->head = nullptr;
+    this->tail = nullptr;
+    this->totalCredits = 0;
+
+    Node* srcIt = course.head;
+
+    while (srcIt != nullptr) {
+        if (course.getCrn() == this->)
+    }
+
     return true;
 }
 
