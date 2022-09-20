@@ -19,22 +19,24 @@ Schedule::Schedule()
 }
 
 /**
- * @todo implement this function (it is simliar to Review 01)
+ * @todo implement this function (it is similar to Review 01)
  */
 Schedule::Schedule(const Schedule& src)
-    // initializes data members in C++11
-    :head(nullptr),
-     tail(nullptr),
-     totalCredits(0)
 {
     // Start the Copy Operations
+    std::cout << "in copy function" << std::endl;
+    this->head = nullptr;
+    this->tail = nullptr;
+    this->totalCredits = 0;
+
     Node* srcIt = src.head;
 
     while (srcIt != nullptr) {
+        std::cout << "in while function" << std::endl;
         this->appendNoCheck(srcIt->data);
-
         srcIt = srcIt->next;
     }
+
 }
 
 /**
@@ -97,7 +99,19 @@ bool Schedule::wouldViolateCreditLimit(Course course) const
 {
     // The following line is a placeholder (i.e., enough for the code to
     // compile). Remove it when you start implementing this function.
-    return true;
+
+    Node* it = head;
+
+    while (it != nullptr) {
+
+        if ((course.getCredits() + this->totalCredits) > CREDIT_LIMIT) {
+            return false;
+        } else {
+            return true;
+        }
+
+        it = it->next;
+    }
 }
 
 /**
