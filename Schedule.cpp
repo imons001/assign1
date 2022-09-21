@@ -22,21 +22,19 @@ Schedule::Schedule()
  * @todo implement this function (it is similar to Review 01)
  */
 Schedule::Schedule(const Schedule& src)
+    :head(nullptr),
+     tail(nullptr),
+     totalCredits(0)
 {
     // Start the Copy Operations
-    std::cout << "in copy function" << std::endl;
-    this->head = nullptr;
-    this->tail = nullptr;
-    this->totalCredits = 0;
-
     Node* srcIt = src.head;
 
     while (srcIt != nullptr) {
-        std::cout << "in while function" << std::endl;
+
         this->appendNoCheck(srcIt->data);
+
         srcIt = srcIt->next;
     }
-
 }
 
 /**
@@ -68,7 +66,7 @@ Schedule::~Schedule()
 
     head = nullptr;
     tail = nullptr;
-    ///nodes = 0;
+    totalCredits = 0;
 }
 
 /**
@@ -76,18 +74,27 @@ Schedule::~Schedule()
  */
 void Schedule::appendNoCheck(Course course)
 {
+    //Create a new node
     Node *new_node = nullptr;
 
+    //store data in new node
     new_node = new Node(course);
 
-    if (this->head == nullptr) {
+    //Check if it is the first node being added
+    if (this->totalCredits == 0) {
+        //If it is the first node then add it in
         this->head = new_node;
         this->tail = new_node;
-    } else {
+    }
+    else {
+        //if it is not the first node, add to the end
         (this->tail)->next = new_node;
         this->tail = new_node;
     }
-    this->totalCredits++;
+
+    //increase the total number of credits
+
+    this->totalCredits = (this->totalCredits) + course.getCredits();
 
     new_node = nullptr;
 }
@@ -97,20 +104,11 @@ void Schedule::appendNoCheck(Course course)
  */
 bool Schedule::wouldViolateCreditLimit(Course course) const
 {
-    // The following line is a placeholder (i.e., enough for the code to
-    // compile). Remove it when you start implementing this function.
-
-    Node* it = head;
-
-    while (it != nullptr) {
-
-        if ((course.getCredits() + this->totalCredits) > CREDIT_LIMIT) {
-            return false;
-        } else {
-            return true;
-        }
-
-        it = it->next;
+    //Check if adding the course would exceed the credit limit
+    if ((course.getCredits() + this->totalCredits) > CREDIT_LIMIT) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -122,9 +120,17 @@ bool Schedule::alreadyInSchedule(Course course) const
     // Check if the student is registered
     // for a different section of the same course
 
-    // The following line is a placeholder (i.e., enough for the code to
-    // compile). Remove it when you start implementing this function.
-    return true;
+    Node* it = head;
+
+    while (it != nullptr){
+        //if the same course is already found then return true
+        if (it->data.getNumber() == course.getNumber()) {
+            return true;
+        }
+        it = it->next;
+    }
+    //if the same course was not found then return false
+    return false;
 }
 
 //------------------------------------------------------------------------------
